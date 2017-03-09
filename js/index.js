@@ -1,91 +1,39 @@
 /**
- * @providesModule App
+ *@providesModule App
  * @flow
  */
+import React from "react";
+import { AppRegistry, Text, View, TouchableHighlight } from "react-native";
+import { addNavigationHelpers } from "react-navigation";
+import { AppNavigator } from "navigationReducer";
+import { createStore } from "redux";
+import { Provider, connect } from "react-redux";
+import appReducer from "rootReducer";
 
- // import type { State as AppState } from "AppReducer";
- // import { CardStack } from "NavigationExperimental";
- // import reducer from "./reducers";
- import { applyMiddleware, compose, createStore } from "redux";
- import { Provider, connect } from "react-redux";
- import logger from "redux-logger";
- import React, { Component } from "react";
- // import { persistStore, autoRehydrate } from "redux-persist";
- import { AsyncStorage, NetInfo } from "react-native";
- import {
-   StyleSheet,
-   Text,
-   View,
-   Image,
-   TouchableHighlight,
-   ActivityIndicator
- } from "react-native";
+const store = createStore(appReducer);
 
-const middleware = () => {
-  if (__DEV__) {
-    return [logger()];
-  }
-  return [];
-};
-const store = createStore(
-  // reducer,
-   compose(applyMiddleware(...middleware()))
-);
-
-const App = () => (
-  <Provider store={store}>
-    <ConnectedAroundMe />
-  </Provider>
-);
-
-class AroundMe extends Component{
-  render(){
+class AppWithNavigationState extends React.Component {
+  render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          {this.props.t}
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, sdds edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{"\n"}
-          Cmd+D or shake for dev menu
-        </Text>
-      </View>
-    )
+      <Provider store={store}>
+        <AppConnected />
+      </Provider>
+    );
   }
 }
+const appWithNoState = props => (
+  <AppNavigator
+    navigation={addNavigationHelpers({
+      dispatch: props.dispatch,
+      state: props.nav
+    })}
+  />
+);
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
-  }
-});
-
-const select = (s) => {
+const select = state => {
   return {
-    t: 'DUPADUPADUPA'
+    nav: state.nav
   };
 };
-const dispatchToProps = dispatch => ({
-  dispatch
-});
-
-const ConnectedAroundMe = connect(select, dispatchToProps)(AroundMe)
-
-export default App
+const AppConnected = connect(select)(appWithNoState);
+export default AppWithNavigationState;
