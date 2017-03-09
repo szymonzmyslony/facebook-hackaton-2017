@@ -6,11 +6,29 @@ import React from "react";
 import { AppRegistry, Text, View, TouchableHighlight } from "react-native";
 import { addNavigationHelpers } from "react-navigation";
 import { AppNavigator } from "navigationReducer";
-import { createStore } from "redux";
+import { applyMiddleware, compose, createStore } from "redux";
 import { Provider, connect } from "react-redux";
 import appReducer from "rootReducer";
+import { persistStore, autoRehydrate } from "redux-persist";
+import logger from "redux-logger";
+import { AsyncStorage } from "react-native";
 
-const store = createStore(appReducer);
+const middleware = () => {
+  if (__DEV__) {
+    return [logger()];
+  }
+  return [];
+};
+const store = createStore(
+  appReducer,
+  compose(applyMiddleware(...middleware())),
+  autoRehydrate()
+);
+
+persistStore(store, {
+  storage: AsyncStorage,
+  whitelist: ["navReducer"]
+});
 
 class AppWithNavigationState extends React.Component {
   render() {

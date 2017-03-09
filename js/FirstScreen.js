@@ -6,7 +6,7 @@ import React from "react";
 import { AppRegistry, Text, View, TouchableHighlight } from "react-native";
 import { StackNavigator, NavigationActions } from "react-navigation";
 
-const firstScreen = props => (
+const firstScreen = (props: any) => (
   <View>
     <TouchableHighlight onPress={() => props.navigation.navigate("Host")}>
       <Text>I'm a host</Text>
