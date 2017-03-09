@@ -1,5 +1,5 @@
 /**
- *@providesModule navigationReducer
+ *@providesModule NavigationReducer
  * @flow
  */
 import MainHost from "MainHost";
