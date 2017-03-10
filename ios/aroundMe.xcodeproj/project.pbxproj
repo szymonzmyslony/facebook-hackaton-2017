@@ -617,7 +617,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = H93MPNBSF3;
+						DevelopmentTeam = 76RN7WA2V8;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1038,6 +1038,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = newcomer.Szymas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aroundMe.app/aroundMe";
 			};
@@ -1064,6 +1065,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = newcomer.Szymas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/aroundMe.app/aroundMe";
 			};
@@ -1075,7 +1077,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = H93MPNBSF3;
+				DEVELOPMENT_TEAM = 76RN7WA2V8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1091,7 +1093,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = newcomer.jedrazb;
+				PRODUCT_BUNDLE_IDENTIFIER = newcomer.Szymson;
 				PRODUCT_NAME = aroundMe;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1102,7 +1104,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H93MPNBSF3;
+				DEVELOPMENT_TEAM = 76RN7WA2V8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1118,7 +1120,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = newcomer.jedrazb;
+				PRODUCT_BUNDLE_IDENTIFIER = newcomer.Szymson;
 				PRODUCT_NAME = aroundMe;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

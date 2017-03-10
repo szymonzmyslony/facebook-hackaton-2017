@@ -12,9 +12,9 @@ import appReducer from "rootReducer";
 import { persistStore, autoRehydrate } from "redux-persist";
 import logger from "redux-logger";
 import { AsyncStorage } from "react-native";
-import { createEpicMiddleware } from 'redux-observable';
-import rootEpic from "RootEpic"
-
+import { createEpicMiddleware } from "redux-observable";
+import rootEpic from "RootEpic";
+import { navigateToFirstScreen } from "startUp";
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
 const store = createStore(
@@ -25,8 +25,10 @@ const store = createStore(
 
 persistStore(store, {
   storage: AsyncStorage,
-  whitelist: ["navReducer"]
+  whitelist: ["nav", "user"]
 });
+
+navigateToFirstScreen(store);
 
 class AppWithNavigationState extends React.Component {
   render() {

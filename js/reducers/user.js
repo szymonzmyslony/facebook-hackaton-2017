@@ -3,32 +3,41 @@
  * @flow
  */
 
-
 import { REHYDRATE } from "redux-persist/constants";
 
-type UserAction = {type: "UPDATE_USERNAME"}
+type UserAction = { type: "UPDATE_USERNAME" };
+type UpdateIsHost = { type: "UPDATE_IS_HOST", isHost: isHost };
 
-export const updateUsername = (name: string): UserAction => (
-  {type: "UPDATE_USERNAME"}
-)
+export const updateUsername = (name: string): UserAction => ({
+  type: "UPDATE_USERNAME"
+});
 
-type Test =   {type: "TEST"}
-export const testUserEpic = () : Test => (
-  {type: "TEST"}
-)
+export const updateIsHost = (isHost: isHost): UpdateIsHost => ({
+  type: "UPDATE_IS_HOST",
+  isHost
+});
+
+type isHost = boolean | "NONE";
 
 export type State = {
-  name: string
+  name: string,
+  isHost: isHost
 };
 
 const initialState = {
-  name: "Chuj"
+  name: "Chuj",
+  isHost: "NONE"
 };
 
-const userReducer = (state: State = initialState, action: UserAction): State => {
+const userReducer = (
+  state: State = initialState,
+  action: UserAction | REHYDRATE | UpdateIsHost
+): State => {
   switch (action.type) {
     case "UPDATE_USERNAME":
-      return { ...state, name: "Szymon"};
+      return { ...state, name: "Szymon" };
+    case "UPDATE_IS_HOST":
+      return { ...state, isHost: action.isHost };
     default:
       return state;
   }
