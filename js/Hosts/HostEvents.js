@@ -1,5 +1,5 @@
 /**
- *@providesModule HostEvents
+ *@providesModule Events
  * @flow
  */
 import React from "react";
