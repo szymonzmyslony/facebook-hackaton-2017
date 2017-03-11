@@ -5,93 +5,107 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
-import { updateIsHost } from "UserReducer";
+import { updateIsHost, updateIsLogged } from "UserReducer";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
 import type { State as AppState } from "rootReducer";
 import Button from "apsl-react-native-button";
 
-const firstScreen = (props: any) => (
-  <View style={styles.main}>
-    <View style={[{ height: 90 }, styles.notButtons]}>
-      <Text style={{ fontSize: 30, fontWeight: "700", color: "darkgray" }}>
-        Are you
-      </Text>
-    </View>
-    <Button
-      style={[
-        {
-          backgroundColor: props.isHost === false ? "dodgerblue" : "lightblue",
-          opacity: props.isHost === false ? 100 : 50
-        },
-        styles.button
-      ]}
-      onPress={() => {
-        props.updateIsHost(false);
-      }}
-    >
-      <View>
-        <Text style={styles.text}>looking for help</Text>
-      </View>
-    </Button>
-    <View style={[{ height: 50 }, styles.notButtons]}>
-      <Text style={{ fontSize: 30, fontWeight: "700", color: "darkgray" }}>
-        or
+class FirstScreen extends React.Component {
+  static navigationOptions = {
+    title: "N  E  W  C  O  M  E  R"
+  };
+  render() {
+    return (
+      <View style={styles.main}>
+        <View style={[{ height: 90 }, styles.notButtons]}>
+          <Text style={{ fontSize: 30, fontWeight: "700", color: "darkgray" }}>
+            Are you
+          </Text>
+        </View>
+        <Button
+          style={[
+            {
+              backgroundColor: this.props.isHost === false
+                ? "dodgerblue"
+                : "lightblue",
+              opacity: this.props.isHost === false ? 100 : 50
+            },
+            styles.button
+          ]}
+          onPress={() => {
+            this.props.updateIsHost(false);
+          }}
+        >
+          <View>
+            <Text style={styles.text}>looking for help</Text>
+          </View>
+        </Button>
+        <View style={[{ height: 50 }, styles.notButtons]}>
+          <Text style={{ fontSize: 30, fontWeight: "700", color: "darkgray" }}>
+            or
 
-      </Text>
-    </View>
-    <View style={{ height: 10 }} />
-    <Button
-      style={[
-        {
-          backgroundColor: props.isHost === true ? "dodgerblue" : "lightblue",
-          opacity: props.isHost === true ? 100 : 50
-        },
-        styles.button
-      ]}
-      onPress={() => {
-        props.updateIsHost(true);
-      }}
-    >
-      <View>
-        <Text style={styles.text}>willing to help</Text>
-      </View>
-    </Button>
-    <View style={{ height: 180 }} />
-    <View style={[{ height: 80 }, styles.notButtons]}>
-      <Text style={{ fontSize: 20, fontWeight: "700", color: "darkgray" }}>
-        log in to continue
-      </Text>
-    </View>
-    <View
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "stretch"
-      }}
-    >
-      <LoginButton
-        style={[
-          { opacity: props.isHost === "NONE" ? 0.2 : 1 },
-          styles.fbButton
-        ]}
-        readPermissions={["user_friends", "user_likes"]}
-        onLoginFinished={(error, result) => {
-          props.navigation.navigate(props.isHost ? "Host" : "Guest");
-          if (error) {
-          } else if (result.isCancelled) {
-          } else {
-            AccessToken.getCurrentAccessToken().then(data => {
-              if (data) {
+          </Text>
+        </View>
+        <View style={{ height: 10 }} />
+        <Button
+          style={[
+            {
+              backgroundColor: this.props.isHost === true
+                ? "dodgerblue"
+                : "lightblue",
+              opacity: this.props.isHost === true ? 100 : 50
+            },
+            styles.button
+          ]}
+          onPress={() => {
+            this.props.updateIsHost(true);
+          }}
+        >
+          <View>
+            <Text style={styles.text}>willing to help</Text>
+          </View>
+        </Button>
+        <View style={{ height: 180 }} />
+        <View style={[{ height: 80 }, styles.notButtons]}>
+          <Text style={{ fontSize: 20, fontWeight: "700", color: "darkgray" }}>
+            log in to continue
+          </Text>
+        </View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            alignSelf: "stretch"
+          }}
+        >
+          <LoginButton
+            style={[
+              { opacity: this.props.isHost === "NONE" ? 0.2 : 1 },
+              styles.fbButton
+            ]}
+            readPermissions={["user_friends", "user_likes"]}
+            onLoginFinished={(error, result) => {
+              this.props.updateIsLogged(true);
+              this.props.navigation.navigate(
+                this.props.isHost ? "Host" : "Guest"
+              );
+              if (error) {
+              } else if (result.isCancelled) {
+              } else {
+                AccessToken.getCurrentAccessToken().then(data => {
+                  if (data) {
+                  }
+                });
               }
-            });
-          }
-        }}
-      />
+            }}
+          />
 
-    </View>
-  </View>
-);
+        </View>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   button: {
@@ -129,13 +143,15 @@ const styles = StyleSheet.create({
 
 const select = (state: AppState) => {
   return {
-    isHost: state.user.isHost
+    isHost: state.user.isHost,
+    isLogged: state.user.isLogged
   };
 };
 
 const dispatchToProps = dispatch => ({
   updateIsHost: isHost => dispatch(updateIsHost(isHost)),
+  updateIsLogged: isLogged => dispatch(updateIsLogged(isLogged)),
   dispatch
 });
 
-export default connect(select, dispatchToProps)(firstScreen);
+export default connect(select, dispatchToProps)(FirstScreen);

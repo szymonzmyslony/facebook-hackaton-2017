@@ -9,10 +9,21 @@ type State = { dataSource: any };
 export type Post = { title: string };
 type Props = { posts: Array<Post> };
 
-const HostEvents = () => (
-  <Events
-    posts={[{ title: "hahahah" }, { title: "hahahah" }, { title: "hahahah" }]}
-  />
-);
+class HostEvents extends React.Component {
+  static navigationOptions = {
+    title: "Events"
+  };
+  render() {
+    return (
+      <Events
+        posts={[
+          { title: "hahahah" },
+          { title: "hahahah" },
+          { title: "hahahah" }
+        ]}
+      />
+    );
+  }
+}
 
 export default HostEvents;
