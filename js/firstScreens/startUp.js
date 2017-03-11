@@ -32,6 +32,9 @@ export const navigateToFirstScreen = (store: any) => {
   AccessToken.getCurrentAccessToken()
     .then(data => {
       if (data) {
+        if (store.user.loggedIn) {
+          store.dispatch(navigateToHost);
+        }
         if (store.user.isHost === "NONE") {
         } else if (store.user.isHost) {
           store.dispatch(navigateToHost);
