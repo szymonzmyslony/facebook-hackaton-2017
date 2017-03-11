@@ -50,14 +50,14 @@ type Props = {
 class Family extends React.Component {
   static navigationOptions = {
     title: "Your family",
-    header: {
+    header: (navigation, defaultHeader) => ({
       right: (
         <Button
-          title={". . . "}
-          onPress={() => this.props.navigation.navigate("Settings")}
+          title={". . ."}
+          onPress={() => navigation.navigate("Settings")}
         />
       )
-    }
+    })
   };
   state = {
     dataSource: new ListView.DataSource({
