@@ -6,7 +6,8 @@ import React from "react";
 import { TouchableHighlight, Button, Text, View, ListView } from "react-native";
 import Events from "Events";
 type State = { dataSource: any };
-export type Post = { title: string };
+import { gql, graphql } from "react-apollo";
+import type { Post } from "Events";
 type Props = { posts: Array<Post> };
 
 class HostEvents extends React.Component {
@@ -24,14 +25,30 @@ class HostEvents extends React.Component {
   render() {
     return (
       <Events
-        posts={[
-          { title: "hahahah" },
-          { title: "hahahah" },
-          { title: "hahahah" }
-        ]}
+        loading={this.props.data.loading}
+        posts={
+          this.props.data.allEventPosts
+            ? this.props.data.allEventPosts.edges
+            : []
+        }
       />
     );
   }
 }
 
-export default HostEvents;
+const FetchedPosts = gql`
+query {
+allEventPosts {
+edges {
+  node {
+    location,
+    creator {
+      userId
+    },
+    timeCreated
+  }
+}
+}
+}`;
+
+export default graphql(FetchedPosts)(HostEvents);

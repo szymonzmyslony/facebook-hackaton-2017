@@ -6,10 +6,13 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
 import { updateIsHost, updateIsLogged } from "UserReducer";
+
+import { updateUserCredentials } from "UserReducer";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
 import type { State as AppState } from "rootReducer";
 import Button from "apsl-react-native-button";
+import { gql, graphql } from "react-apollo";
 
 class FirstScreen extends React.Component {
   static navigationOptions = {
@@ -95,6 +98,13 @@ class FirstScreen extends React.Component {
               } else {
                 AccessToken.getCurrentAccessToken().then(data => {
                   if (data) {
+                    this.props.updateUserCredentials(
+                      data.userID,
+                      data.accessToken
+                    );
+                    this.props.mutate({
+                      variables: { id: data.userID, token: data.accessToken }
+                    });
                   }
                 });
               }
@@ -106,7 +116,13 @@ class FirstScreen extends React.Component {
     );
   }
 }
-
+const submitUser = gql`mutation {
+    newUser(input:
+      {userId: $id, accessToken:$token})
+    {
+      clientMutationId
+    }
+  }`;
 const styles = StyleSheet.create({
   button: {
     borderWidth: 0,
@@ -151,7 +167,9 @@ const select = (state: AppState) => {
 const dispatchToProps = dispatch => ({
   updateIsHost: isHost => dispatch(updateIsHost(isHost)),
   updateIsLogged: isLogged => dispatch(updateIsLogged(isLogged)),
-  dispatch
+  updateUserCredentials: (id: string, token: string) =>
+    dispatch(updateUserCredentials(id, token))
 });
 
-export default connect(select, dispatchToProps)(FirstScreen);
+const connected = connect(select, dispatchToProps)(FirstScreen);
+export default graphql(submitUser)(connected);
