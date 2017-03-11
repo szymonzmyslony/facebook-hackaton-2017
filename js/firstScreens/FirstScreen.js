@@ -75,16 +75,26 @@ const firstScreen = (props: any) => (
         ]}
         readPermissions={["user_friends", "user_likes"]}
         onLoginFinished={(error, result) => {
-          props.navigation.navigate(props.isHost ? "Host" : "Guest");
           if (error) {
           } else if (result.isCancelled) {
           } else {
             AccessToken.getCurrentAccessToken().then(data => {
               if (data) {
                 props.updateUserCredentials(data.userID, data.accessToken);
-                props.newUser({
-                  variables: { id: data.userID, token: data.accessToken }
-                });
+                props
+                  .mutate({
+                    variables: {
+                      id: data.userID,
+                      token: data.accessToken,
+                      isHost: props.isHost
+                    }
+                  })
+                  .then(data => {
+                    props.navigation.navigate(props.isHost ? "Host" : "Guest");
+                  })
+                  .catch(error => {
+                    console.log("there was an error sending the query", error);
+                  });
               }
             });
           }
@@ -97,7 +107,7 @@ const firstScreen = (props: any) => (
 
 const submitUser = gql`mutation {
     newUser(input:
-      {userId: $id, accessToken:$token})
+      {userId: $id, accessToken:$token, isHost: $isHost})
     {
       clientMutationId
     }
