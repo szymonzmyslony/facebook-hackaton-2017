@@ -13,13 +13,12 @@ import { persistStore, autoRehydrate } from "redux-persist";
 import logger from "redux-logger";
 import { AsyncStorage } from "react-native";
 import { createEpicMiddleware } from "redux-observable";
-import rootEpic from "RootEpic";
-import { navigateToFirstScreen } from "startUp";
-const epicMiddleware = createEpicMiddleware(rootEpic);
+import { ApolloProvider } from "react-apollo";
+import { client } from "rootReducer";
 
 const store = createStore(
   appReducer,
-  applyMiddleware(epicMiddleware),
+  applyMiddleware(client.middleware()),
   autoRehydrate()
 );
 
@@ -28,14 +27,12 @@ persistStore(store, {
   whitelist: ["user"]
 });
 
-navigateToFirstScreen(store);
-
 class AppWithNavigationState extends React.Component {
   render() {
     return (
-      <Provider store={store}>
+      <ApolloProvider store={store} client={client}>
         <AppConnected />
-      </Provider>
+      </ApolloProvider>
     );
   }
 }

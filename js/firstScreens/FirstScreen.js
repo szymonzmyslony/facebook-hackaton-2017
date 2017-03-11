@@ -37,6 +37,7 @@ const firstScreen = (props: any) => (
     <View style={[{ height: 50 }, styles.notButtons]}>
       <Text style={{ fontSize: 30, fontWeight: "700", color: "darkgray" }}>
         or
+
       </Text>
     </View>
     <View style={{ height: 10 }} />
@@ -60,6 +61,7 @@ const firstScreen = (props: any) => (
     <View style={[{ height: 80 }, styles.notButtons]}>
       <Text style={{ fontSize: 20, fontWeight: "700", color: "darkgray" }}>
         log in to continue
+
       </Text>
     </View>
     <View
@@ -133,7 +135,8 @@ const select = (state: AppState) => {
 };
 
 const dispatchToProps = dispatch => ({
-  updateIsHost: isHost => dispatch(updateIsHost(isHost))
+  updateIsHost: isHost => dispatch(updateIsHost(isHost)),
+  dispatch
 });
 
 export default connect(select, dispatchToProps)(firstScreen);
