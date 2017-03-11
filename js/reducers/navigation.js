@@ -2,10 +2,9 @@
  *@providesModule NavigationReducer
  * @flow
  */
-import MainHost from "MainHost";
+import MainHost from "MainScreen";
 import MainRefugee from "MainRefugee";
 import FirstScreen from "FirstScreen";
-import FacebookLogin from "FacebookLogin";
 import { addNavigationHelpers, StackNavigator } from "react-navigation";
 import type { NavigationState } from "react-navigation";
 export const AppNavigator = StackNavigator({

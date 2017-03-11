@@ -8,6 +8,7 @@ type State = { dataSource: any };
 import renderPost from "Post";
 export type Post = { title: string };
 type Props = { posts: Array<Post>, loading: boolean };
+
 class Events extends React.Component<void, Props, State> {
   constructor(props: Props) {
     super(props);

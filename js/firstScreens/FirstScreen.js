@@ -5,11 +5,12 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { connect } from "react-redux";
-import { updateIsHost } from "UserReducer";
+import { updateIsHost, updateUserCredentials } from "UserReducer";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
 import type { State as AppState } from "rootReducer";
 import Button from "apsl-react-native-button";
+import { gql, graphql } from "react-apollo";
 
 const firstScreen = (props: any) => (
   <View style={styles.main}>
@@ -28,8 +29,7 @@ const firstScreen = (props: any) => (
       ]}
       onPress={() => {
         props.updateIsHost(false);
-      }}
-    >
+      }}>
       <View>
         <Text style={styles.text}>looking for help</Text>
       </View>
@@ -51,8 +51,7 @@ const firstScreen = (props: any) => (
       ]}
       onPress={() => {
         props.updateIsHost(true);
-      }}
-    >
+      }}>
       <View>
         <Text style={styles.text}>willing to help</Text>
       </View>
@@ -68,8 +67,7 @@ const firstScreen = (props: any) => (
         justifyContent: "center",
         alignItems: "center",
         alignSelf: "stretch"
-      }}
-    >
+      }}>
       <LoginButton
         style={[
           { opacity: props.isHost === "NONE" ? 0.2 : 1 },
@@ -83,6 +81,10 @@ const firstScreen = (props: any) => (
           } else {
             AccessToken.getCurrentAccessToken().then(data => {
               if (data) {
+                props.updateUserCredentials(data.userID, data.accessToken);
+                props.newUser({
+                  variables: { id: data.userID, token: data.accessToken }
+                });
               }
             });
           }
@@ -93,6 +95,13 @@ const firstScreen = (props: any) => (
   </View>
 );
 
+const submitUser = gql`mutation {
+    newUser(input:
+      {userId: $id, accessToken:$token})
+    {
+      clientMutationId
+    }
+  }`;
 const styles = StyleSheet.create({
   button: {
     borderWidth: 0,
@@ -135,7 +144,9 @@ const select = (state: AppState) => {
 
 const dispatchToProps = dispatch => ({
   updateIsHost: isHost => dispatch(updateIsHost(isHost)),
-  dispatch
+  updateUserCredentials: (id: string, token: string) =>
+    dispatch(updateUserCredentials(id, token))
 });
 
-export default connect(select, dispatchToProps)(firstScreen);
+const connected = connect(select, dispatchToProps)(firstScreen);
+export default graphql(submitUser)(connected);
