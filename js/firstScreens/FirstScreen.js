@@ -4,33 +4,39 @@
  */
 import React, { Component } from "react";
 import { Text, View, TouchableHighlight } from "react-native";
-import { testUserEpic } from "UserReducer";
 import { connect } from "react-redux";
-import type { UpdateIsHost } from "UserReducer";
 import { updateIsHost } from "UserReducer";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
+import type { State as AppState } from "rootReducer";
 
 const firstScreen = (props: any) => (
   <View>
     <TouchableHighlight
+      underlayColor={"transparent"}
       onPress={() => {
-        props.navigation.navigate("Host");
         props.updateIsHost(true);
-      }}>
-      <Text>I'm a host</Text>
+      }}
+    >
+      <Text style={{ color: props.isHost === true ? "red" : "black" }}>
+        I'm a host
+      </Text>
     </TouchableHighlight>
     <TouchableHighlight
+      underlayColor={"transparent"}
       onPress={() => {
-        props.navigation.navigate("Guest");
         props.updateIsHost(false);
-      }}>
-      <Text>I'm a Guest</Text>
+      }}
+    >
+      <Text style={{ color: props.isHost === false ? "red" : "black" }}>
+        I'm a Guest
+      </Text>
     </TouchableHighlight>
     <View>
       <LoginButton
         readPermissions={["user_friends", "user_likes"]}
         onLoginFinished={(error, result) => {
+          props.navigation.navigate(props.isHost ? "Host" : "Guest");
           if (error) {
           } else if (result.isCancelled) {
           } else {
@@ -46,8 +52,14 @@ const firstScreen = (props: any) => (
   </View>
 );
 
+const select = (state: AppState) => {
+  return {
+    isHost: state.user.isHost
+  };
+};
+
 const dispatchToProps = dispatch => ({
   updateIsHost: isHost => dispatch(updateIsHost(isHost))
 });
 
-export default connect(null, dispatchToProps)(firstScreen);
+export default connect(select, dispatchToProps)(firstScreen);

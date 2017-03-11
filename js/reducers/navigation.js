@@ -15,12 +15,15 @@ export const AppNavigator = StackNavigator({
 });
 
 const navReducer = (state: any, action: any) => {
-  if (
-    action.type === "Navigation/NAVIGATE" &&
-    (action.routeName === "Host" || action.routeName === "Guest")
-  ) {
-    return { ...state, routes: [{ key: "Init", routeName: action.routeName }] };
-  }
+  // if (
+  //   action.type === "Navigation/NAVIGATE" &&
+  //   (action.routeName === "Host" || action.routeName === "Guest")
+  // ) {
+  //   return {
+  //     index: 0,
+  //     routes: [{ key: "Init", routeName: action.routeName }]
+  //   };
+  // }
   const newState = AppNavigator.router.getStateForAction(action, state);
   return newState || state;
 };

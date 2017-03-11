@@ -28,7 +28,7 @@ const navigateToGuest = NavigationActions.reset({
   ]
 });
 
-export const navigateToFirstScreen = store => {
+export const navigateToFirstScreen = (store: any) => {
   AccessToken.getCurrentAccessToken()
     .then(data => {
       if (data) {

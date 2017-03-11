@@ -25,7 +25,7 @@ const store = createStore(
 
 persistStore(store, {
   storage: AsyncStorage,
-  whitelist: ["nav", "user"]
+  whitelist: ["user"]
 });
 
 navigateToFirstScreen(store);
