@@ -61,7 +61,6 @@ const firstScreen = (props: any) => (
     <View style={[{ height: 80 }, styles.notButtons]}>
       <Text style={{ fontSize: 20, fontWeight: "700", color: "darkgray" }}>
         log in to continue
-
       </Text>
     </View>
     <View
