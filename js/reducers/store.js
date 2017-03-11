@@ -15,7 +15,7 @@ import type { NavigationState } from "react-navigation";
 import type { State as UserState } from "UserReducer";
 export const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: "http://my-api.graphql.com"
+    uri: "http://172.22.85.189:9999"
   }),
   queryTransformer: addTypeName
 });
