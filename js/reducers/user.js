@@ -7,6 +7,7 @@ import { REHYDRATE } from "redux-persist/constants";
 
 type UserAction = { type: "UPDATE_USERNAME" };
 type UpdateIsHost = { type: "UPDATE_IS_HOST", isHost: isHost };
+type UpdateIsLogged = { type: "UPDATE_IS_LOGGED", isLogged: boolean };
 
 type UpdateUserCredentials = { type: "CREDENTIALS", id: string, token: string };
 
@@ -23,6 +24,11 @@ export const updateUsername = (name: string): UserAction => ({
   type: "UPDATE_USERNAME"
 });
 
+export const updateIsLogged = (isLogged: boolean): UpdateIsLogged => ({
+  type: "UPDATE_IS_LOGGED",
+  isLogged
+});
+
 export const updateIsHost = (isHost: isHost): UpdateIsHost => ({
   type: "UPDATE_IS_HOST",
   isHost
@@ -33,6 +39,7 @@ type isHost = boolean | "NONE";
 export type State = {
   name: string,
   isHost: isHost,
+  isLogged: boolean,
   userId: string,
   accesToken: string
 };
@@ -40,15 +47,18 @@ export type State = {
 const initialState = {
   name: "Chuj",
   isHost: "NONE",
+  isLogged: false,
   userId: "",
   accesToken: ""
 };
 
 const userReducer = (
   state: State = initialState,
-  action: UserAction | UpdateIsHost | UpdateUserCredentials
+  action: UserAction | UpdateIsHost | UpdateIsLogged | UpdateUserCredentials
 ): State => {
   switch (action.type) {
+    case "UPDATE_IS_LOGGED":
+      return { ...state, isLogged: action.isLogged };
     case "CREDENTIALS":
       return { ...state, userId: action.id, accesToken: action.token };
     case "UPDATE_USERNAME":

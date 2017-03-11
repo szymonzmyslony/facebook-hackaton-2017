@@ -5,12 +5,16 @@
 import MainHost from "MainScreen";
 import MainRefugee from "MainRefugee";
 import FirstScreen from "FirstScreen";
+import Settings from "../Settings/Settings";
+import CreateEvent from "CreateEvent";
 import { addNavigationHelpers, StackNavigator } from "react-navigation";
 import type { NavigationState } from "react-navigation";
 export const AppNavigator = StackNavigator({
   Home: { screen: FirstScreen },
   Host: { screen: MainHost },
-  Guest: { screen: MainRefugee }
+  Guest: { screen: MainRefugee },
+  Settings: { screen: Settings },
+  CreateEvent: { screen: CreateEvent }
 });
 
 const navReducer = (state: NavigationState, action: any) => {

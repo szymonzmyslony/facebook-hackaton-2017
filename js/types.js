@@ -9,13 +9,16 @@ export type Person = {
   hometown: string,
   location: string,
   photo: Photo,
-  bio: string
+  bio: string,
+  familyMember: boolean
 };
 
 export type Event = {
+  participants: Array<Person>,
   location: string,
   date: string,
-  title: string
+  title: string,
+  creator: Person
 };
 
 export type Photo = { width: number, height: number, url: string };

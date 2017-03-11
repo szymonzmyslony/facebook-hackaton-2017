@@ -31,8 +31,4 @@ const MainHost = TabNavigator(
   }
 );
 
-MainHost.navigationOptions = {
-  title: "Be nice to others"
-};
-
 export default MainHost;

@@ -3,7 +3,7 @@
  * @flow
  */
 import React from "react";
-import { StyleSheet, Text, View, ListView } from "react-native";
+import { Button, StyleSheet, Text, View, ListView } from "react-native";
 import PersonView from "PersonView";
 import type { Person } from "Types";
 
@@ -16,7 +16,8 @@ const mockData = [
     hometown: "sadasddas",
     photo: {
       url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
-    }
+    },
+    familyMember: true
   },
   {
     name: "asgdfgdf",
@@ -26,7 +27,8 @@ const mockData = [
     hometown: "hjgffj",
     photo: {
       url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
-    }
+    },
+    familyMember: true
   },
   {
     name: "erterter",
@@ -36,7 +38,8 @@ const mockData = [
     hometown: "dfg",
     photo: {
       url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
-    }
+    },
+    familyMember: true
   }
 ];
 
@@ -45,9 +48,17 @@ type Props = {
 };
 
 class Family extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  static navigationOptions = {
+    title: "Your family",
+    header: (navigation, defaultHeader) => ({
+      right: (
+        <Button
+          title={". . ."}
+          onPress={() => navigation.navigate("Settings")}
+        />
+      )
+    })
+  };
   state = {
     dataSource: new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2
@@ -59,12 +70,17 @@ class Family extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
+        {/* <Button
+          title={"sdsaasd"}
+          onPress={() => this.props.navigation.navigate("Settings")}
+        /> */}
         <ListView
           enableEmptySections={true}
           contentContainerStyle={styles.list}
           dataSource={this.state.dataSource}
           renderRow={this.renderRow.bind(this)}
         />
+
       </View>
     );
   }
