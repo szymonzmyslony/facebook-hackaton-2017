@@ -5,6 +5,7 @@
 
 const FBSDK = require("react-native-fbsdk");
 const { AccessToken } = FBSDK;
+import type { isHost } from "UserReducer";
 import { NavigationActions } from "react-navigation";
 const navigateToFirst = NavigationActions.navigate({
   routeName: "Home"
@@ -28,15 +29,15 @@ const navigateToGuest = NavigationActions.reset({
   ]
 });
 
-export const navigateToFirstScreen = (store: any) => {
+export const navigateToFirstScreen = (isHost: isHost, dispatch: any) => {
   AccessToken.getCurrentAccessToken()
     .then(data => {
       if (data) {
-        if (store.user.isHost === "NONE") {
-        } else if (store.user.isHost) {
-          store.dispatch(navigateToHost);
+        if (isHost === "NONE") {
+        } else if (isHost) {
+          dispatch(navigateToHost);
         } else {
-          store.dispatch(navigateToGuest);
+          dispatch(navigateToGuest);
         }
       } else {
       }

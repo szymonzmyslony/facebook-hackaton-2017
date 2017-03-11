@@ -28,8 +28,6 @@ persistStore(store, {
   whitelist: ["user"]
 });
 
-navigateToFirstScreen(store);
-
 class AppWithNavigationState extends React.Component {
   render() {
     return (

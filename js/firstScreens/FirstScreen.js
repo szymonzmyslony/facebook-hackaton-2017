@@ -16,8 +16,7 @@ const firstScreen = (props: any) => (
       underlayColor={"transparent"}
       onPress={() => {
         props.updateIsHost(true);
-      }}
-    >
+      }}>
       <Text style={{ color: props.isHost === true ? "red" : "black" }}>
         I'm a host
       </Text>
@@ -26,8 +25,7 @@ const firstScreen = (props: any) => (
       underlayColor={"transparent"}
       onPress={() => {
         props.updateIsHost(false);
-      }}
-    >
+      }}>
       <Text style={{ color: props.isHost === false ? "red" : "black" }}>
         I'm a Guest
       </Text>
@@ -59,7 +57,8 @@ const select = (state: AppState) => {
 };
 
 const dispatchToProps = dispatch => ({
-  updateIsHost: isHost => dispatch(updateIsHost(isHost))
+  updateIsHost: isHost => dispatch(updateIsHost(isHost)),
+  dispatch
 });
 
 export default connect(select, dispatchToProps)(firstScreen);

@@ -31,7 +31,7 @@ const initialState = {
 
 const userReducer = (
   state: State = initialState,
-  action: UserAction | REHYDRATE | UpdateIsHost
+  action: UserAction | UpdateIsHost
 ): State => {
   switch (action.type) {
     case "UPDATE_USERNAME":
