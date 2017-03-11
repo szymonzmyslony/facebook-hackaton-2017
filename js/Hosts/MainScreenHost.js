@@ -6,12 +6,12 @@
 import React from "react";
 import { Text, View } from "react-native";
 import { TabNavigator } from "react-navigation";
-import Events from "Events";
-import YourGuest from "Family";
+import HostEvents from "HostEvents";
+import Family from "Family";
 const MainHost = TabNavigator(
   {
-    Family: { screen: YourGuest },
-    Events: { screen: Events }
+    Family: { screen: Family },
+    Events: { screen: HostEvents }
   },
   {
     tabBarOptions: {

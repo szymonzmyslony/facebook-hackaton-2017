@@ -1,5 +1,5 @@
 /**
- *@providesModule Family
+ * @providesModule Family
  * @flow
  */
 import React from "react";

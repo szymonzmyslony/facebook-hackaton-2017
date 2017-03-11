@@ -5,7 +5,7 @@
 import React from "react";
 import { Text, View, ListView } from "react-native";
 type State = { dataSource: any };
-import renderPost from "Post";
+import renderPost from "./post";
 export type Post = {};
 type Props = { posts: Array<Post> };
 class Events extends React.Component<void, Props, State> {
