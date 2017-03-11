@@ -13,8 +13,6 @@ import { persistStore, autoRehydrate } from "redux-persist";
 import logger from "redux-logger";
 import { AsyncStorage } from "react-native";
 import { createEpicMiddleware } from "redux-observable";
-import rootEpic from "RootEpic";
-import { navigateToFirstScreen } from "startUp";
 import { ApolloProvider } from "react-apollo";
 import { client } from "rootReducer";
 

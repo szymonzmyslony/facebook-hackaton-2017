@@ -6,6 +6,7 @@ import { combineReducers } from "redux";
 import navReducer from "NavigationReducer";
 import userReducer from "UserReducer";
 import { ApolloClient, createNetworkInterface } from "react-apollo";
+import type { NavigationState } from "react-navigation";
 
 import type { State as UserState } from "UserReducer";
 export const client = new ApolloClient({
@@ -19,7 +20,9 @@ const appReducer = combineReducers({
 });
 
 export type State = {
-  user: UserState
+  user: UserState,
+  nav: NavigationState,
+  apollo: any
 };
 
 export default appReducer;

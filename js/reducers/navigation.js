@@ -7,14 +7,14 @@ import MainRefugee from "MainRefugee";
 import FirstScreen from "FirstScreen";
 import FacebookLogin from "FacebookLogin";
 import { addNavigationHelpers, StackNavigator } from "react-navigation";
-
+import type { NavigationState } from "react-navigation";
 export const AppNavigator = StackNavigator({
   Home: { screen: FirstScreen },
   Host: { screen: MainHost },
   Guest: { screen: MainRefugee }
 });
 
-const navReducer = (state: any, action: any) => {
+const navReducer = (state: NavigationState, action: any) => {
   const newState = AppNavigator.router.getStateForAction(action, state);
   if (
     action.type === "Navigation/NAVIGATE" &&
