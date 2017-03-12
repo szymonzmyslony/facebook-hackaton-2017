@@ -6,7 +6,6 @@ import React from "react";
 import { TouchableHighlight, Button, Text, View, ListView } from "react-native";
 import Events from "Events";
 type State = { dataSource: any };
-import { gql, graphql } from "react-apollo";
 import type { Post } from "Events";
 type Props = { posts: Array<Post> };
 
@@ -16,8 +15,14 @@ class HostEvents extends React.Component {
     header: (navigation, defaultHeader) => ({
       right: (
         <Button
-          title={"+"}
+          title={"add  "}
           onPress={() => navigation.navigate("CreateEvent")}
+        />
+      ),
+      left: (
+        <Button
+          title={"  notif"}
+          onPress={() => navigation.navigate("NotificationsPanel")}
         />
       )
     })
@@ -36,19 +41,19 @@ class HostEvents extends React.Component {
   }
 }
 
-const FetchedPosts = gql`
-query {
-allEventPosts {
-edges {
-  node {
-    location,
-    creator {
-      userId
-    },
-    timeCreated
-  }
-}
-}
-}`;
+// const FetchedPosts = gql`
+// query {
+// allEventPosts {
+// edges {
+//   node {
+//     location,
+//     creator {
+//       userId
+//     },
+//     timeCreated
+//   }
+// }
+// }
+// }`;
 
-export default graphql(FetchedPosts)(HostEvents);
+export default HostEvents;

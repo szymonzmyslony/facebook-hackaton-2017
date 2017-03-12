@@ -7,6 +7,7 @@ import MainRefugee from "MainRefugee";
 import FirstScreen from "FirstScreen";
 import Settings from "../Settings/Settings";
 import CreateEvent from "CreateEvent";
+import NotificationsPanel from "NotificationsPanel";
 import { addNavigationHelpers, StackNavigator } from "react-navigation";
 import type { NavigationState } from "react-navigation";
 export const AppNavigator = StackNavigator({
@@ -14,7 +15,8 @@ export const AppNavigator = StackNavigator({
   Host: { screen: MainHost },
   Guest: { screen: MainRefugee },
   Settings: { screen: Settings },
-  CreateEvent: { screen: CreateEvent }
+  CreateEvent: { screen: CreateEvent },
+  NotificationsPanel: { screen: NotificationsPanel }
 });
 
 const navReducer = (state: NavigationState, action: any) => {

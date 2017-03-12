@@ -8,7 +8,6 @@ import { StyleSheet, Text, View } from "react-native";
 const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
 import { connect } from "react-redux";
-import { updateIsLogged } from "UserReducer";
 import type { State as AppState } from "rootReducer";
 import Button from "apsl-react-native-button";
 
@@ -30,8 +29,7 @@ class Settings extends React.Component<void, Props, void> {
           marginRight: 20,
           marginTop: 10,
           marginBottom: 10
-        }}
-      >
+        }}>
         <Text>
           {`is user logged to facebook: ${this.props.isLogged.toString()}`}
         </Text>
@@ -40,8 +38,7 @@ class Settings extends React.Component<void, Props, void> {
           onPress={() => {
             this.props.updateIsLogged(false);
             this.props.navigation.navigate("Home");
-          }}
-        >
+          }}>
           <View>
             <Text style={styles.text}>Log out</Text>
           </View>
@@ -73,7 +70,6 @@ const select = (state: AppState) => {
 };
 
 const dispatchToProps = dispatch => ({
-  updateIsLogged: isLogged => dispatch(updateIsLogged(isLogged)),
   dispatch
 });
 

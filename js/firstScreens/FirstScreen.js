@@ -12,7 +12,7 @@ const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
 import type { State as AppState } from "rootReducer";
 import Button from "apsl-react-native-button";
-import { gql, graphql } from "react-apollo";
+// import { gql, graphql } from "react-apollo";
 
 class FirstScreen extends React.Component {
   static navigationOptions = {
@@ -86,6 +86,10 @@ class FirstScreen extends React.Component {
             ]}
             readPermissions={["user_friends", "user_likes"]}
             onLoginFinished={(error, result) => {
+              this.props.updateIsLogged(true);
+              this.props.navigation.navigate(
+                this.props.isHost ? "Host" : "Guest"
+              );
               if (error) {
               } else if (result.isCancelled) {
               } else {
@@ -101,10 +105,10 @@ class FirstScreen extends React.Component {
                         accessToken: data.accessToken,
                         isHost: true
                       })
-                      .then(p => {
-                        this.props.navigation.navigate(
-                          this.props.isHost ? "Host" : "Guest"
-                        );
+                      .then(data => {
+                        // this.props.navigation.navigate(
+                        //     this.props.isHost ? "Host" : "Guest"
+                        // );
                       })
                       .catch(error => {
                         debugger;
@@ -139,20 +143,20 @@ class FirstScreen extends React.Component {
 const userId = "109314856267823";
 const isHost = true;
 const accessToken = "EAAUKNgKXb3gBADpKFUYhHlzppn2iLRmRu1ANoqVuRAk2WFjnOU3ZCWAey8NbiJLR4qi4YMNn7QnWF3Js67M8OygvsB42XZAioDHFfg2SHG9JUFKF6iRq9SR00b6PmzVSntXWdDwwCrvSsJHMv2UVBZAaZBUBs6ZB3cYJ0YRDFOoEhcOIXn1yZBwU5oBMLwldp2Nu0MYvASWSgzziVZCtrg3K8DkAMD1lHoZD";
-const newUser = gql`mutation
-  newUser($userId: String!, $isHost: boolean!, $accessToken: String!){
-    newUser(userId:$userId, isHost:$isHost, accessToken:$accessToken) {
-    user {
-      userId,
-      firstName,
-      lastName,
-      gender,
-      location,
-      email,
-      picture
-    }
-  }
-}`;
+// const newUser = gql`mutation
+//   newUser($userId: String!, $isHost: boolean!, $accessToken: String!){
+//     newUser(userId:$userId, isHost:$isHost, accessToken:$accessToken) {
+//     user {
+//       userId,
+//       firstName,
+//       lastName,
+//       gender,
+//       location,
+//       email,
+//       picture
+//     }
+//   }
+// }`;
 
 const styles = StyleSheet.create({
   button: {
@@ -202,8 +206,4 @@ const dispatchToProps = dispatch => ({
 });
 
 const connected = connect(select, dispatchToProps)(FirstScreen);
-export default graphql(newUser, {
-  props: ({ mutate }) => ({
-    submit: (id, token, isHost) => mutate({ variables: { id, token, isHost } })
-  })
-})(connected);
+export default connected;

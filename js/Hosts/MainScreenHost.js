@@ -19,7 +19,7 @@ const MainHost = TabNavigator(
       labelStyle: {
         fontSize: 17,
         marginBottom: 15,
-        fontWeight: "600"
+        fontWeight: "400"
       },
       style: {
         backgroundColor: "white"
