@@ -4,48 +4,51 @@
  */
 import React from "react";
 import { Button, StyleSheet, Text, View, ListView } from "react-native";
-import PersonView from "PersonView";
+import People from "People";
 import type { Person } from "Types";
+type State = { dataSource: any };
+import { gql, graphql } from "react-apollo";
+import type { State as AppState } from "rootReducer";
+import { connect } from "react-redux";
 
-const mockData = [
+const people = [
   {
-    name: "asfdsad",
-    surname: "asdasdasd",
-    age: 23,
-    location: "dasdasad",
-    hometown: "sadasddas",
-    photo: {
-      url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
-    },
-    familyMember: true
+    firstName: "John",
+    lastName: "Sparrow",
+    birthday: "19-04-1993",
+    location: "Berlin, Germany",
+    hometown: "Aleppo, Syria",
+    isGuest: true,
+    picture: "https://2.gravatar.com/avatar/27eb4093e7ce0ed7c4f5fe1a7f027ab6?s=256&d=identicon&r=G"
   },
   {
-    name: "asgdfgdf",
-    surname: "jghjfghjhgf",
-    age: 33,
-    location: "jghf",
-    hometown: "hjgffj",
-    photo: {
-      url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
-    },
-    familyMember: true
+    firstName: "Mohammed",
+    lastName: "Ali",
+    birthday: "23-05-1986",
+    location: "Berlin, Germany",
+    hometown: "Damascus, Syria",
+    isGuest: true,
+    picture: "https://s-media-cache-ak0.pinimg.com/236x/6b/a6/0a/6ba60aebe4c64bd33d7ad285565f78d8.jpg"
   },
   {
-    name: "erterter",
-    surname: "ghfghfdg",
-    age: 24,
-    location: "bnvvb",
-    hometown: "dfg",
-    photo: {
-      url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
-    },
-    familyMember: true
+    firstName: "Aliya.",
+    lastName: "Muttawa",
+    birthday: "23-05-1976",
+    location: "Berlin, Germany",
+    hometown: "Raqqa, Syria",
+    isGuest: true,
+    picture: "https://www.lebanoninapicture.com/Prv/Images/Pages/Page_89053/syrian-refugee-nermin-abrouch-8-who-fled-with-h-2-16-2017-4-29-00-pm-t.jpg"
+  },
+  {
+    firstName: "Aliya.",
+    lastName: "Muttawa",
+    birthday: "23-05-1976",
+    location: "Berlin, Germany",
+    hometown: "Raqqa, Syria",
+    isGuest: false,
+    picture: "https://www.lebanoninapicture.com/Prv/Images/Pages/Page_89053/syrian-refugee-nermin-abrouch-8-who-fled-with-h-2-16-2017-4-29-00-pm-t.jpg"
   }
 ];
-
-type Props = {
-  people: Array<Person>
-};
 
 class Family extends React.Component {
   static navigationOptions = {
@@ -65,35 +68,41 @@ class Family extends React.Component {
       )
     })
   };
-  state = {
-    dataSource: new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2
-    }).cloneWithRows(mockData)
-  };
-  renderRow(person: Person) {
-    return <PersonView person={person} />;
-  }
-  render() {
-    return (
-      <View style={{ flex: 1 }}>
-        {/* <Button
-          title={"sdsaasd"}
-          onPress={() => this.props.navigation.navigate("Settings")}
-        /> */}
-        <ListView
-          enableEmptySections={true}
-          contentContainerStyle={styles.list}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
-        />
 
-      </View>
-    );
+  render() {
+    return <People loading={false} people={people} />;
   }
 }
 
 const styles = StyleSheet.create({
   list: { paddingLeft: 0, paddingTop: 0, backgroundColor: "white" }
 });
-
 export default Family;
+// const FetchedPosts = gql`
+// query {
+//   user(id: 109541496244907) {
+//     connectedUsers {
+//       edges {
+//         node {
+//           userId,
+//           firstName,
+//           lastName,
+//           picture,
+//           location
+//         }
+//       }
+//     }
+//   }
+// }`;
+//
+// // const select = (state: AppState) => {
+//   return {
+//     userId: state.user.userId
+//   };
+// };
+//
+// const dispatchToProps = dispatch => ({});
+//
+// const connected = connect(select, dispatchToProps)(Family);
+
+// export default graphql(FetchedPosts)(Family);

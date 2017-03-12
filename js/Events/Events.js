@@ -6,7 +6,17 @@ import React from "react";
 import { Text, View, ListView } from "react-native";
 type State = { dataSource: any };
 import renderPost from "Post";
-export type Post = { title: string };
+
+export type Post = {
+  title: string,
+  description: string,
+  dateTime: string,
+  location: string,
+  creatorName: string,
+  createSurname: string,
+  picture: string
+};
+
 type Props = { posts: Array<Post>, loading: boolean };
 import Loading from "loading";
 class Events extends React.Component<void, Props, State> {

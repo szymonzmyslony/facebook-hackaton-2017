@@ -22,48 +22,90 @@ type Props = {
 };
 
 const Separator = () => <View style={styles.separator} />;
-class PersonView extends React.Component<void, Props, void> {
-  render() {
-    return (
-      <View>
-        <View style={styles.mainCard}>
-          <View style={{ alignItems: "flex-start" }}>
-            <Image
+
+const personView = (props: any) => {
+  const AddButton = () => {
+    return props.isGuest === false
+      ? <View style={{ position: "absolute", right: 1, paddingTop: 9 }}>
+          <TouchableHighlight
+            style={[{ backgroundColor: "lightblue" }, styles.button]}
+            onPress={() => {}}
+          >
+            <Text
               style={{
-                width: 59,
-                height: 59,
-                marginTop: 1.5
+                fontSize: 25,
+                color: "white",
+                fontWeight: "700",
+                justifyContent: "center",
+                alignItems: "center",
+                paddingBottom: 4
               }}
-              source={{ uri: this.props.person.photo.url }}
-            />
+            >
+              +
+            </Text>
+          </TouchableHighlight>
+        </View>
+      : <View />;
+  };
+  // const { node } = props;
+  return (
+    <View style={{ backgroundColor: props.isGuest ? "lightblue" : "#E9E9EF" }}>
+      <View
+        style={[
+          styles.mainCard,
+          { backgroundColor: props.isGuest ? "lightblue" : "#E9E9EF" }
+        ]}
+      >
+        <View style={{ alignItems: "flex-start" }}>
+          <Image
+            style={{
+              width: 59,
+              height: 59,
+              marginTop: 1.5
+            }}
+            source={{
+              uri: props.picture
+                ? props.picture
+                : "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
+            }}
+          />
+        </View>
+        <View style={{ flexDirection: "column" }}>
+          <View style={{ marginLeft: 15, flexDirection: "row" }}>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>
+              {
+                `${props.firstName ? props.firstName : "michal"} ${props.lastName ? props.lastName : "kazmierski"}`
+              }
+            </Text>
+            <View style={{ marginTop: 5, paddingLeft: 7 }}>
+              <Text style={{ fontSize: 14 }}>
+                {`${props.birthday ? props.birthday : "defalult birthday"}`}
+              </Text>
+            </View>
           </View>
-          <View style={{ flexDirection: "column" }}>
-            <View style={{ marginLeft: 15, flexDirection: "row" }}>
-              <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                {`${this.props.person.name} ${this.props.person.surname}`}
-              </Text>
-            </View>
-            <View style={{ height: 2 }} />
-            <View style={{ marginLeft: 15, flexDirection: "row" }}>
-              <Text style={{ fontSize: 14 }}>
-                {
-                  `Age: ${this.props.person.age} Location: ${this.props.person.location}`
-                }
-              </Text>
-            </View>
-            <View style={{ height: 2 }} />
-            <View style={{ marginLeft: 15, flexDirection: "row" }}>
-              <Text style={{ fontSize: 14 }}>
-                {`hometown: ${this.props.person.hometown}`}
-              </Text>
-            </View>
+          <View style={{ height: 2 }} />
+          <View style={{ marginLeft: 15, flexDirection: "row" }}>
+            <Text style={{ fontSize: 14 }}>
+              {
+                `Location: ${props.location ? props.location : "default location"}`
+              }
+            </Text>
+          </View>
+          <View style={{ height: 2 }} />
+          <View style={{ marginLeft: 15, flexDirection: "row" }}>
+            <Text style={{ fontSize: 14 }}>
+              {`Hometown: ${props.hometown}`}
+            </Text>
           </View>
         </View>
-        <Separator />
+        <AddButton />
       </View>
-    );
-  }
-}
+
+      <Separator />
+
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   mainCard: {
@@ -119,7 +161,17 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 20,
     right: 20
+  },
+  button: {
+    height: 40,
+    width: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    borderWidth: 0,
+    backgroundColor: "dodgerblue",
+    marginRight: 20
   }
 });
 
-export default PersonView;
+export default personView;

@@ -38,7 +38,8 @@ class FirstScreen extends React.Component {
           ]}
           onPress={() => {
             this.props.updateIsHost(false);
-          }}>
+          }}
+        >
           <View>
             <Text style={styles.text}>looking for help</Text>
           </View>
@@ -62,7 +63,8 @@ class FirstScreen extends React.Component {
           ]}
           onPress={() => {
             this.props.updateIsHost(true);
-          }}>
+          }}
+        >
           <View>
             <Text style={styles.text}>willing to help</Text>
           </View>
@@ -78,7 +80,8 @@ class FirstScreen extends React.Component {
             justifyContent: "center",
             alignItems: "center",
             alignSelf: "stretch"
-          }}>
+          }}
+        >
           <LoginButton
             style={[
               { opacity: this.props.isHost === "NONE" ? 0.2 : 1 },
@@ -170,8 +173,7 @@ const styles = StyleSheet.create({
 
 const select = (state: AppState) => {
   return {
-    isHost: state.user.isHost,
-    isLogged: state.user.isLogged
+    isHost: state.user.isHost
   };
 };
 

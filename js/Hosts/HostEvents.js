@@ -11,6 +11,9 @@ import type { Post } from "Events";
 type Props = { posts: Array<Post> };
 
 class HostEvents extends React.Component {
+  componentWillReceiveProps() {
+    debugger;
+  }
   static navigationOptions = {
     title: "Events",
     header: (navigation, defaultHeader) => ({
@@ -44,17 +47,22 @@ class HostEvents extends React.Component {
 
 const FetchedPosts = gql`
 query {
-allEventPosts {
-edges {
-  node {
-    location,
-    creator {
-      userId
-    },
-    timeCreated
+  allEventPosts {
+    edges {
+      node {
+        title,
+        text,
+        dateTime,
+        location,
+        creator {
+          firstName,
+          middleName,
+          lastName,
+          picture
+        }
+      }
+    }
   }
-}
-}
 }`;
 
 export default graphql(FetchedPosts)(HostEvents);

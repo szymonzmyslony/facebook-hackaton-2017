@@ -9,7 +9,7 @@ type Props = { post: Post };
 
 const Separator = () => <View style={styles.separator} />;
 const post = (props: Props) => {
-  //  const { node } = props;
+  const { node } = props;
   return (
     <View>
       <View style={styles.mainCard}>
@@ -21,26 +21,44 @@ const post = (props: Props) => {
               marginTop: 1.5
             }}
             source={{
-              uri: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
+              uri: node.creator.picture
+                ? node.creator.picture
+                : "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
             }}
           />
         </View>
         <View style={{ flexDirection: "column" }}>
           <View style={{ marginLeft: 15, flexDirection: "row" }}>
-            <Text style={{ fontSize: 18, fontWeight: "600" }}>
-              {"Wyjcie na dziwki"}
+            <Text style={{ fontSize: 16, fontWeight: "600" }}>
+              {node.creator.firstName ? node.creator.firstName : "name"}
+            </Text>
+            <View style={{ width: 5 }} />
+            <Text style={{ fontSize: 16, fontWeight: "600" }}>
+              {node.creator.lastName ? node.creator.lastName : "surname"}
+            </Text>
+
+          </View>
+          <View style={{ flexDirection: "row", paddingLeft: 14 }}>
+            <Text style={{ fontSize: 16, fontWeight: "300" }}>
+              {node.title ? node.title : "Default event"}
+            </Text>
+            <View style={{ width: 10 }} />
+            <Text style={{ fontSize: 14, paddingTop: 1 }}>
+              {node.location ? node.location : "Default location "}
             </Text>
           </View>
           <View style={{ height: 2 }} />
           <View style={{ marginLeft: 15, flexDirection: "row" }}>
             <Text style={{ fontSize: 14 }}>
-              {"13 Mar 2017 3:00 PM     Poznan"}
+              {node.dateTime ? node.dateTime : "29 Feb 1999 07:06 AM  "}
             </Text>
+
           </View>
+
           <View style={{ height: 2 }} />
-          <View style={{ marginLeft: 15, flexDirection: "row" }}>
+          <View style={{ marginLeft: 15, flexDirection: "row", width: 280 }}>
             <Text style={{ fontSize: 14 }}>
-              {"Details: asdadsadsaddsa"}
+              {node.text ? node.text : "Default details"}
             </Text>
           </View>
         </View>
@@ -57,7 +75,7 @@ const styles = StyleSheet.create({
     marginBottom: 7,
     paddingRight: 10,
     paddingLeft: 15,
-    height: 60,
+    height: 115,
     flexDirection: "row"
   },
   commonStyle: {
