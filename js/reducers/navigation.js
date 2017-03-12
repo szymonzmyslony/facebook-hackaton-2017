@@ -2,18 +2,18 @@
  *@providesModule NavigationReducer
  * @flow
  */
-import MainHost from "MainScreen";
-import MainRefugee from "MainRefugee";
+import MainHost from "MainScreenHost";
+import MainGuest from "MainScreenGuest";
 import FirstScreen from "FirstScreen";
 import Settings from "../Settings/Settings";
 import CreateEvent from "CreateEvent";
-import NotificationsPanel from "NotificationsPanel";
+import NotificationsPanel from "../Notifications/NotificationsPanel";
 import { addNavigationHelpers, StackNavigator } from "react-navigation";
 import type { NavigationState } from "react-navigation";
 export const AppNavigator = StackNavigator({
   Home: { screen: FirstScreen },
   Host: { screen: MainHost },
-  Guest: { screen: MainRefugee },
+  Guest: { screen: MainGuest },
   Settings: { screen: Settings },
   CreateEvent: { screen: CreateEvent },
   NotificationsPanel: { screen: NotificationsPanel }

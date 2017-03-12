@@ -11,16 +11,31 @@ type Props = { posts: Array<Notification> };
 
 class NotificationsPanel extends React.Component {
   static navigationOptions = {
-    title: "Notifications panel"
+    title: "Notifications"
   };
   render() {
     return (
       <Notifications
         loading={false}
         notifications={[
-          { title: "hahahah" },
-          { title: "hahahah" },
-          { title: "hahahah" }
+          {
+            type: "hahahah",
+            name: "Szymson",
+            surname: "Zmyslony",
+            url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
+          },
+          {
+            type: "hahahah",
+            name: "Maciej",
+            surname: "Krasiński",
+            url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
+          },
+          {
+            type: "hahahah",
+            name: "Tosia",
+            surname: "Ruszkowska",
+            url: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
+          }
         ]}
       />
     );
