@@ -10,18 +10,18 @@ import renderPost from "Notification";
 import Loading from "loading";
 
 export type Notification = {
-  type: string,
   name: string,
   surname: name,
-  url: string
+  picture: string,
+  location: string
 };
 
 type Props = { notifications: Array<Notification>, loading: boolean };
 
-class Notifications extends React.Component<void, Props, State> {
-  constructor(props: Props) {
-    super(props);
-  }
+class Notifications extends React.Component {
+  // constructor(props: Props) {
+  //   super(props);
+  // }
   state = {
     dataSource: new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2
@@ -40,9 +40,6 @@ class Notifications extends React.Component<void, Props, State> {
   };
 
   render() {
-    if (this.props.loading) {
-      return <Loading />;
-    }
     return (
       <ListView
         enableEmptySections={true}
