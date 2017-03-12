@@ -12,7 +12,7 @@ const FBSDK = require("react-native-fbsdk");
 const { LoginButton, AccessToken } = FBSDK;
 import type { State as AppState } from "rootReducer";
 import Button from "apsl-react-native-button";
-// import { gql, graphql } from "react-apollo";
+import { gql, graphql } from "react-apollo";
 
 class FirstScreen extends React.Component {
   static navigationOptions = {
@@ -86,7 +86,6 @@ class FirstScreen extends React.Component {
             ]}
             readPermissions={["user_friends", "user_likes"]}
             onLoginFinished={(error, result) => {
-              this.props.updateIsLogged(true);
               this.props.navigation.navigate(
                 this.props.isHost ? "Host" : "Guest"
               );
@@ -100,10 +99,12 @@ class FirstScreen extends React.Component {
                       data.accessToken
                     );
                     this.props
-                      .submit({
-                        userID: data.userID,
-                        accessToken: data.accessToken,
-                        isHost: true
+                      .mutate({
+                        variables: {
+                          userID: data.userID,
+                          accessToken: data.accessToken,
+                          isHost: true
+                        }
                       })
                       .then(data => {
                         // this.props.navigation.navigate(
@@ -124,39 +125,14 @@ class FirstScreen extends React.Component {
     );
   }
 }
-// const isHost = true;
 
-// const newUser = gql`mutation {newUser($id: String!) {
-//     newUser(input: {userId:"109541496244907",accessToken:"EAAUKNgKXb3gBAArPdqQaevmrKiD6xBZAzygMncM0Li8ASaxCMzjwNqsJMg4oUPPzx1oZB65tWgzlmad6ZBIwlUZBeBp2EcSpcB5gHzhmipzbgvZCQlrgc8TYJxiRnQ87oe79Wep71ZAWTdbdM5ZAY4yKXB77oVhPIwz2wpJwyBZCLs7O12xRtC6frKGYUznnxirfZC9QE5dM1ITkhDNzF9UlWmoUSljuMYZAwZD", isHost: true }) {
-//       clientMutationId
-//     }
-//   }}
-// `;
-
-// const newUser = gql`mutation {
-//   newUser{input: {userId:"109541496244907",accessToken:"EAAUKNgKXb3gBAArPdqQaevmrKiD6xBZAzygMncM0Li8ASaxCMzjwNqsJMg4oUPPzx1oZB65tWgzlmad6ZBIwlUZBeBp2EcSpcB5gHzhmipzbgvZCQlrgc8TYJxiRnQ87oe79Wep71ZAWTdbdM5ZAY4yKXB77oVhPIwz2wpJwyBZCLs7O12xRtC6frKGYUznnxirfZC9QE5dM1ITkhDNzF9UlWmoUSljuMYZAwZD", isHost: true }} {
-//     clientMutationId
-//
-//   }
-// }`;
-
-const userId = "109314856267823";
-const isHost = true;
-const accessToken = "EAAUKNgKXb3gBADpKFUYhHlzppn2iLRmRu1ANoqVuRAk2WFjnOU3ZCWAey8NbiJLR4qi4YMNn7QnWF3Js67M8OygvsB42XZAioDHFfg2SHG9JUFKF6iRq9SR00b6PmzVSntXWdDwwCrvSsJHMv2UVBZAaZBUBs6ZB3cYJ0YRDFOoEhcOIXn1yZBwU5oBMLwldp2Nu0MYvASWSgzziVZCtrg3K8DkAMD1lHoZD";
-// const newUser = gql`mutation
-//   newUser($userId: String!, $isHost: boolean!, $accessToken: String!){
-//     newUser(userId:$userId, isHost:$isHost, accessToken:$accessToken) {
-//     user {
-//       userId,
-//       firstName,
-//       lastName,
-//       gender,
-//       location,
-//       email,
-//       picture
-//     }
-//   }
-// }`;
+const newUser = gql`
+  mutation newUser($userID: String!, $accesToken: String!, $isHost: boolean) {
+    newUser(userID: "109541496244907", accesToken: "EAAUKNgKXb3gBAJ9xBJEjvRZBZAZCFKzIBEJ6fyaCwU4n4C2dJxpGNoK6vC9KFVjkC1BsUshnlgs11f9JRlji7CttIa9cOdmRYv1aUjzE1Cq3FcqQxPLwSokFcyFWqh8EtjUx9oDFBDIWZBmzDNL8tUCsAc0b330WacW6Mmh360lRb1WJTBL00ehkVZAqlsaoO3NC6F07ZCIS6QNVumV699Tm9LGhhZC9FsZD", isHost: true) {
+      clientMutationId
+    }
+  }
+`;
 
 const styles = StyleSheet.create({
   button: {
@@ -206,4 +182,4 @@ const dispatchToProps = dispatch => ({
 });
 
 const connected = connect(select, dispatchToProps)(FirstScreen);
-export default connected;
+export default graphql(newUser)(connected);

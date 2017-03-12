@@ -13,18 +13,14 @@ import { persistStore, autoRehydrate } from "redux-persist";
 import logger from "redux-logger";
 import { AsyncStorage } from "react-native";
 import { createEpicMiddleware } from "redux-observable";
-// import { ApolloProvider } from "react-apollo";
-// import { client } from "rootReducer";
+import { ApolloProvider } from "react-apollo";
+import { client } from "rootReducer";
 
-const store = createStore(
-  appReducer,
-  applyMiddleware(client.middleware()),
-  autoRehydrate()
-);
+const store = createStore(appReducer, autoRehydrate());
 
 persistStore(store, {
   storage: AsyncStorage,
-  whitelist: ["user", "nav"]
+  whitelist: ["user"]
 });
 
 class AppWithNavigationState extends React.Component {
