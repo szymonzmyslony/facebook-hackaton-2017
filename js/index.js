@@ -24,7 +24,7 @@ const store = createStore(
 
 persistStore(store, {
   storage: AsyncStorage,
-  whitelist: ["user"]
+  whitelist: ["user", "nav"]
 });
 
 class AppWithNavigationState extends React.Component {
