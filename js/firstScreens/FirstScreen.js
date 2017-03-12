@@ -86,9 +86,6 @@ class FirstScreen extends React.Component {
             ]}
             readPermissions={["user_friends", "user_likes"]}
             onLoginFinished={(error, result) => {
-              this.props.navigation.navigate(
-                this.props.isHost ? "Host" : "Guest"
-              );
               if (error) {
               } else if (result.isCancelled) {
               } else {
@@ -98,21 +95,20 @@ class FirstScreen extends React.Component {
                       data.userID,
                       data.accessToken
                     );
+
                     this.props
-                      .mutate({
-                        variables: {
-                          userID: data.userID,
-                          accessToken: data.accessToken,
-                          isHost: true
-                        }
+                      .submit({
+                        userId: data.userID,
+                        accessToken: data.accessToken,
+                        isHost: this.props.isHost
                       })
                       .then(data => {
-                        // this.props.navigation.navigate(
-                        //     this.props.isHost ? "Host" : "Guest"
-                        // );
+                        this.props.navigation.navigate(
+                          this.props.isHost ? "Host" : "Guest"
+                        );
                       })
                       .catch(error => {
-                        debugger;
+                        console.log(error);
                       });
                   }
                 });
@@ -126,13 +122,12 @@ class FirstScreen extends React.Component {
   }
 }
 
-const newUser = gql`
-  mutation newUser($userID: String!, $accesToken: String!, $isHost: boolean) {
-    newUser(userID: "109541496244907", accesToken: "EAAUKNgKXb3gBAJ9xBJEjvRZBZAZCFKzIBEJ6fyaCwU4n4C2dJxpGNoK6vC9KFVjkC1BsUshnlgs11f9JRlji7CttIa9cOdmRYv1aUjzE1Cq3FcqQxPLwSokFcyFWqh8EtjUx9oDFBDIWZBmzDNL8tUCsAc0b330WacW6Mmh360lRb1WJTBL00ehkVZAqlsaoO3NC6F07ZCIS6QNVumV699Tm9LGhhZC9FsZD", isHost: true) {
-      clientMutationId
-    }
+type Inp = { userId: string, accessToken: string, isHost: boolean };
+const newUser = gql`mutation newUser($userId:String!, $accessToken:String!, $isHost:Boolean!){
+  newUser(input:{userId:$userId, accessToken:$accessToken, isHost: $isHost} ) {
+    clientMutationId
   }
-`;
+}`;
 
 const styles = StyleSheet.create({
   button: {
@@ -182,4 +177,9 @@ const dispatchToProps = dispatch => ({
 });
 
 const connected = connect(select, dispatchToProps)(FirstScreen);
-export default graphql(newUser)(connected);
+export default graphql(newUser, {
+  props: ({ mutate }) => ({
+    submit: ({ userId, accessToken, isHost }) =>
+      mutate({ variables: { userId, accessToken, isHost } })
+  })
+})(connected);

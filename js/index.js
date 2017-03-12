@@ -16,7 +16,11 @@ import { createEpicMiddleware } from "redux-observable";
 import { ApolloProvider } from "react-apollo";
 import { client } from "rootReducer";
 
-const store = createStore(appReducer, autoRehydrate());
+const store = createStore(
+  appReducer,
+  // applyMiddleware(client.middleware()),
+  autoRehydrate()
+);
 
 persistStore(store, {
   storage: AsyncStorage,
