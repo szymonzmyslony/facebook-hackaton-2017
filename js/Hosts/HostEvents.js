@@ -11,9 +11,6 @@ import type { Post } from "Events";
 type Props = { posts: Array<Post> };
 
 class HostEvents extends React.Component {
-  componentWillReceiveProps() {
-    debugger;
-  }
   static navigationOptions = {
     title: "Events",
     header: (navigation, defaultHeader) => ({

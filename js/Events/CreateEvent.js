@@ -8,6 +8,8 @@ import FontAwesomeIcon from "react-native-vector-icons/FontAwesome";
 import { Hoshi } from "react-native-textinput-effects";
 import GooglePlacesAutocomplete from "./autocomplete";
 import Button from "apsl-react-native-button";
+import { gql, graphql } from "react-apollo";
+import { connect } from "react-redux";
 
 class CreateEvent extends React.Component {
   static navigationOptions = {
@@ -49,8 +51,7 @@ class CreateEvent extends React.Component {
           backgroundColor: "#E9E9EF",
           flex: 1,
           flexDirection: "column"
-        }}
-      >
+        }}>
         <View style={{ height: 5 }} />
         <View
           style={{
@@ -58,8 +59,7 @@ class CreateEvent extends React.Component {
             marginLeft: 20,
             marginRight: 20,
             backgroundColor: "#E9E9EF"
-          }}
-        >
+          }}>
           <Hoshi
             label={"Title"}
             // this is used as active border color
@@ -143,8 +143,22 @@ class CreateEvent extends React.Component {
               },
               styles.button
             ]}
-            onPress={() => {}}
-          >
+            onPress={() => {
+              this.props
+                .submit({
+                  title: this.state.title,
+                  location: this.state.location,
+                  creator: this.props.id,
+                  text: "GOWNO",
+                  dateTime: "2017-03-12T00:00:00+00:00"
+                })
+                .then(data => {
+                  this.props.navigation.back();
+                })
+                .catch(error => {
+                  console.log(error);
+                });
+            }}>
             <View>
               <Text style={styles.text}>Create</Text>
             </View>
@@ -192,4 +206,24 @@ const styles = StyleSheet.create({
   topCaption: { fontWeight: "800", fontSize: 30, color: "#983B59" }
 });
 
-export default CreateEvent;
+const newEventPost = gql`mutation newEventPost($title: String!, $location:String!, $creator: String!, $text: String!, $dateTime:String!){
+    newEventPost(input:
+      {title: $title, location: $location , creator: $creator, text:$text, dateTime: $dateTime})
+    {
+      clientMutationId
+    }
+  }`;
+
+const select = state => {
+  return {
+    id: state.user.userId
+  };
+};
+const connected = connect(select)(CreateEvent);
+export default graphql(newEventPost, {
+  props: ({ mutate }) => ({
+    submit: ({ title, location, creator, text, dateTime }) => mutate({
+      variables: { title, location, creator, text, dateTime }
+    })
+  })
+})(connected);
