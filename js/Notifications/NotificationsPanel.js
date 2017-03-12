@@ -6,7 +6,6 @@ import React from "react";
 import { TouchableHighlight, Button, Text, View, ListView } from "react-native";
 import Notifications from "Notifications";
 type State = { dataSource: any };
-import { gql, graphql } from "react-apollo";
 import type { Notification } from "Notifications";
 type Props = { posts: Array<Notification> };
 

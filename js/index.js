@@ -13,14 +13,10 @@ import { persistStore, autoRehydrate } from "redux-persist";
 import logger from "redux-logger";
 import { AsyncStorage } from "react-native";
 import { createEpicMiddleware } from "redux-observable";
-import { ApolloProvider } from "react-apollo";
-import { client } from "rootReducer";
+// import { ApolloProvider } from "react-apollo";
+// import { client } from "rootReducer";
 
-const store = createStore(
-  appReducer,
-  applyMiddleware(client.middleware()),
-  autoRehydrate()
-);
+const store = createStore(appReducer, autoRehydrate());
 
 persistStore(store, {
   storage: AsyncStorage,
@@ -30,9 +26,9 @@ persistStore(store, {
 class AppWithNavigationState extends React.Component {
   render() {
     return (
-      <ApolloProvider store={store} client={client}>
+      <Provider store={store}>
         <AppConnected />
-      </ApolloProvider>
+      </Provider>
     );
   }
 }
