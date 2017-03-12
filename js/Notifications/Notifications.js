@@ -9,7 +9,12 @@ type State = { dataSource: any };
 import renderPost from "Notification";
 import Loading from "loading";
 
-export type Notification = { title: string };
+export type Notification = {
+  type: string,
+  name: string,
+  surname: name,
+  url: string
+};
 
 type Props = { notifications: Array<Notification>, loading: boolean };
 

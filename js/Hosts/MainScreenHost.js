@@ -1,5 +1,5 @@
 /**
- *@providesModule MainScreen
+ *@providesModule MainScreenHost
  * @flow
  */
 
@@ -7,11 +7,15 @@ import React from "react";
 import { Text, View } from "react-native";
 import { TabNavigator } from "react-navigation";
 import HostEvents from "HostEvents";
+import GuestEvents from "GuestEvents";
 import Family from "Family";
+
 const MainHost = TabNavigator(
   {
     Family: { screen: Family },
-    Events: { screen: HostEvents }
+    Events: {
+      screen: HostEvents
+    }
   },
   {
     tabBarOptions: {
