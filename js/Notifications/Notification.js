@@ -12,9 +12,11 @@ import {
   ListView
 } from "react-native";
 import type { Notification } from "Notifications";
-type Props = { post: Notification };
+
+type Props = { notification: Notification };
 
 const Separator = () => <View style={styles.separator} />;
+
 const notification = (props: Props) => {
   //  const { node } = props;
   return (
@@ -28,7 +30,7 @@ const notification = (props: Props) => {
               marginTop: 1.5
             }}
             source={{
-              uri: "https://facebookbrand.com/wp-content/themes/fb-branding/prj-fb-branding/assets/images/fb-art.png"
+              uri: props.picture
             }}
           />
         </View>
@@ -41,13 +43,13 @@ const notification = (props: Props) => {
           <View style={{ height: 2 }} />
           <View style={{ marginLeft: 15, flexDirection: "row" }}>
             <Text style={{ fontSize: 14 }}>
-              {"Henrik van Bakel"}
+              {`${props.name} ${props.surname}`}
             </Text>
           </View>
           <View style={{ height: 2 }} />
           <View style={{ marginLeft: 15, flexDirection: "row" }}>
             <Text style={{ fontSize: 14 }}>
-              {"Location: Berlin"}
+              {`${props.location}`}
             </Text>
           </View>
         </View>
@@ -55,8 +57,9 @@ const notification = (props: Props) => {
           style={{
             flexDirection: "row",
             alignItems: "flex-end",
-            marginBottom: 10,
-            paddingLeft: 30
+            marginBottom: 5,
+            position: "absolute",
+            right: 10
           }}
         >
           <TouchableHighlight
@@ -65,7 +68,7 @@ const notification = (props: Props) => {
           >
             <Text style={styles.text}>YES</Text>
           </TouchableHighlight>
-          <View style={{ width: 10 }} />
+          <View style={{ width: 5 }} />
           <TouchableHighlight
             style={[{ backgroundColor: "orangered" }, styles.button]}
             onPress={() => {}}

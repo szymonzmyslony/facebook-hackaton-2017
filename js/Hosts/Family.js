@@ -31,7 +31,7 @@ const people = [
     picture: "https://s-media-cache-ak0.pinimg.com/236x/6b/a6/0a/6ba60aebe4c64bd33d7ad285565f78d8.jpg"
   },
   {
-    firstName: "Aliya.",
+    firstName: "Aliya",
     lastName: "Muttawa",
     birthday: "23-05-1976",
     location: "Berlin, Germany",
@@ -40,11 +40,11 @@ const people = [
     picture: "https://www.lebanoninapicture.com/Prv/Images/Pages/Page_89053/syrian-refugee-nermin-abrouch-8-who-fled-with-h-2-16-2017-4-29-00-pm-t.jpg"
   },
   {
-    firstName: "Aliya.",
-    lastName: "Muttawa",
-    birthday: "23-05-1976",
+    firstName: "Hedwiga",
+    lastName: "Boarto",
+    birthday: "23-05-1923",
     location: "Berlin, Germany",
-    hometown: "Raqqa, Syria",
+    hometown: "Cairo, Egypt",
     isGuest: false,
     picture: "https://www.lebanoninapicture.com/Prv/Images/Pages/Page_89053/syrian-refugee-nermin-abrouch-8-who-fled-with-h-2-16-2017-4-29-00-pm-t.jpg"
   }
