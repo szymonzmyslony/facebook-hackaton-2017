@@ -1,0 +1,53 @@
+
+
+// post new user logged into the app
+const submitUser = gql`mutation {
+    newUser(input:
+      {userId: $id, accessToken:$token, isHost: $isHost})
+    {
+      clientMutationId
+    }
+  }`;
+
+
+
+//get arrays of posts
+
+  const FetchedPosts = gql`
+  query {
+  allEventPosts {
+  edges {
+    node {
+      location,
+      creator {
+        userId
+      },
+      timeCreated
+    }
+  }
+  }
+  }`;
+
+
+
+//send invitation
+
+//get invitation
+
+//accept inivtation
+
+//reject inivitation
+
+//delete post
+
+//Post a post
+
+//take part in the Event
+
+//dont take part in the event
+
+//get array of proposed hosts
+
+//get array of proposed guests
+
+//get your guests

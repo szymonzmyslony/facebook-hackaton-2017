@@ -38,8 +38,7 @@ class FirstScreen extends React.Component {
           ]}
           onPress={() => {
             this.props.updateIsHost(false);
-          }}
-        >
+          }}>
           <View>
             <Text style={styles.text}>looking for help</Text>
           </View>
@@ -63,8 +62,7 @@ class FirstScreen extends React.Component {
           ]}
           onPress={() => {
             this.props.updateIsHost(true);
-          }}
-        >
+          }}>
           <View>
             <Text style={styles.text}>willing to help</Text>
           </View>
@@ -80,8 +78,7 @@ class FirstScreen extends React.Component {
             justifyContent: "center",
             alignItems: "center",
             alignSelf: "stretch"
-          }}
-        >
+          }}>
           <LoginButton
             style={[
               { opacity: this.props.isHost === "NONE" ? 0.2 : 1 },
@@ -90,9 +87,7 @@ class FirstScreen extends React.Component {
             readPermissions={["user_friends", "user_likes"]}
             onLoginFinished={(error, result) => {
               this.props.updateIsLogged(true);
-              this.props.navigation.navigate(
-                this.props.isHost ? "Host" : "Guest"
-              );
+
               if (error) {
               } else if (result.isCancelled) {
               } else {
@@ -102,9 +97,16 @@ class FirstScreen extends React.Component {
                       data.userID,
                       data.accessToken
                     );
-                    this.props.mutate({
-                      variables: { id: data.userID, token: data.accessToken }
-                    });
+                    this.props
+                      .mutate({
+                        variables: { id: data.userID, token: data.accessToken }
+                      })
+                      .then(data => {
+                        this.props.navigation.navigate(
+                          this.props.isHost ? "Host" : "Guest"
+                        );
+                      })
+                      .catch(error => {});
                   }
                 });
               }
@@ -118,7 +120,7 @@ class FirstScreen extends React.Component {
 }
 const submitUser = gql`mutation {
     newUser(input:
-      {userId: $id, accessToken:$token})
+      {userId: $id, accessToken:$token, isHost: $isHost})
     {
       clientMutationId
     }

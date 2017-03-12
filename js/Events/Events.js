@@ -8,7 +8,7 @@ type State = { dataSource: any };
 import renderPost from "Post";
 export type Post = { title: string };
 type Props = { posts: Array<Post>, loading: boolean };
-
+import Loading from "loading";
 class Events extends React.Component<void, Props, State> {
   constructor(props: Props) {
     super(props);
@@ -30,7 +30,7 @@ class Events extends React.Component<void, Props, State> {
 
   render() {
     if (this.props.loading) {
-      return <Text>nic tu nie ma</Text>;
+      return <Loading />;
     }
     return (
       <ListView
