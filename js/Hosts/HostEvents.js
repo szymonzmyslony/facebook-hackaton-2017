@@ -16,8 +16,14 @@ class HostEvents extends React.Component {
     header: (navigation, defaultHeader) => ({
       right: (
         <Button
-          title={"+"}
+          title={"add  "}
           onPress={() => navigation.navigate("CreateEvent")}
+        />
+      ),
+      left: (
+        <Button
+          title={"  notif"}
+          onPress={() => navigation.navigate("NotificationsPanel")}
         />
       )
     })

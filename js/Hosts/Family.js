@@ -53,8 +53,14 @@ class Family extends React.Component {
     header: (navigation, defaultHeader) => ({
       right: (
         <Button
-          title={". . ."}
+          title={". . .  "}
           onPress={() => navigation.navigate("Settings")}
+        />
+      ),
+      left: (
+        <Button
+          title={"  notif"}
+          onPress={() => navigation.navigate("NotificationsPanel")}
         />
       )
     })
